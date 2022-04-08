@@ -236,7 +236,7 @@ func ParseDbdumps(response []byte) []string {
 }
 
 func getBody(baseURL string) ([]byte, error) {
-	client := http.Client{
+	client := &http.Client{
 		Timeout: HTTPClientTimeout,
 		Transport: &http.Transport{
 			Proxy:           http.ProxyFromEnvironment,
