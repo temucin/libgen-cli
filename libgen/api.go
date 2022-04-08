@@ -143,7 +143,8 @@ func GetDetails(options *GetDetailsOptions) ([]*Book, error) {
 		q.Set("fields", JSONQuery)
 		options.SearchMirror.RawQuery = q.Encode()
 
-		b, err := getBody(options.SearchMirror.String())
+		// b, err := getBodyAndCheckLoading(options.SearchMirror.String())
+		b, err := getBody(options.SearchMirror.String())b, err := getBody(options.SearchMirror.String())
 		if err != nil {
 			return nil, err
 		}
@@ -186,6 +187,24 @@ func GetDetails(options *GetDetailsOptions) ([]*Book, error) {
 
 	return books, nil
 }
+
+// func getBodyAndCheckLoading(baseURL string) ([]byte, error) {
+
+// 	var b []byte
+// 	for {
+// 		_b, err := getBody(baseURL)
+// 		if err != nil {
+// 			return nil, err
+// 		}
+
+// 		if !strings.Contains(string(_b), "Loading...") {
+// 			b = _b
+// 			break
+// 		}
+// 	}
+
+// 	return b, nil
+// }
 
 // CheckMirror returns the HTTP status code of the DownloadURL provided.
 func CheckMirror(url url.URL) int {
@@ -236,7 +255,7 @@ func ParseDbdumps(response []byte) []string {
 }
 
 func getBody(baseURL string) ([]byte, error) {
-	client := http.Client{
+	client := &http.Client{
 		Timeout: HTTPClientTimeout,
 		Transport: &http.Transport{
 			Proxy:           http.ProxyFromEnvironment,
