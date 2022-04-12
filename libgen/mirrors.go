@@ -29,11 +29,7 @@ var SearchMirrors = []url.URL{
 	},
 	{
 		Scheme: "https",
-		Host:   "libgen.unblockit.red",
-	},
-	{
-		Scheme: "http",
-		Host:   "libgen.unblockall.org",
+		Host:   "libgen.gs",
 	},
 	{
 		Scheme: "https",
